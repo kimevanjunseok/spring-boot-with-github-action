@@ -30,7 +30,7 @@ jobs:
 
     # 디렉토리 생성
     - name: Make Directory
-      run: mkdir -p before-deploy
+      run: mkdir -p deploy
 
     # Jar 파일 복사
     - name: Copy Jar
