@@ -21,8 +21,10 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
       run: ./gradlew build
 
@@ -41,10 +43,12 @@ jobs:
     # Deploy
     - name: Deploy
       uses: aws-actions/configure-aws-credentials@v1
-      env:
+      with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: ap-northeast-2
+
+    - name: Upload to S3
       run: aws s3 cp --region apnortheast-2 --acl private ./springboor-with-githubaction.zip s3://springboot-with-githubaction/
 
     # Slack
