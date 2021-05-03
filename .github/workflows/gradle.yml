@@ -26,6 +26,28 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    # 디렉토리 생성
+    - name: Make Directory
+      run: mkdir -p before-deploy
+
+    # Jar 파일 복사
+    - name: Copy Jar
+      run: cp ./build/libs/*.jar ./deploy
+
+    # 파일 압축
+    - name: Make zip file
+      run: zip -r ./springboor-with-githubaction.zip ./deploy
+
+    # Deploy
+    - name: Deploy
+      uses: aws-actions/configure-aws-credentials@v1
+      env:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+        aws-region: ap-northeast-2
+      run: aws s3 cp --region apnortheast-2 --acl private ./springboor-with-githubaction.zip s3://springboot-with-githubaction/
+
+    # Slack
     - name: action-slack
       uses: 8398a7/action-slack@v3
       with:
