@@ -36,6 +36,10 @@ jobs:
     - name: Copy Jar
       run: cp ./build/libs/*.jar ./deploy
 
+    # appspec.yml 파일 복사
+    - name: Copy appspec.yml
+      run: cp appspec.yml ./deploy
+
     # 파일 압축
     - name: Make zip file
       run: zip -r ./springboor-with-githubaction.zip ./deploy
