@@ -51,6 +51,9 @@ jobs:
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 --acl private ./springboor-with-githubaction.zip s3://springboot-with-githubaction/
 
+    - name: CodeDedploy
+      run: aws deploy create-deployment --application-name spring-with-githubaction --deployment-group-name springboot-with-githubaction-group --s3-loaction bucket=springboor-with-githubaction,key=springboor-with-githubaction.zip,bundleType=zip
+
     # Slack
     - name: action-slack
       uses: 8398a7/action-slack@v3
